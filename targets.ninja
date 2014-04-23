@@ -2,9 +2,9 @@
 # THIS FILE WILL BE OVERWRITTEN!
 
 # convex_hull_2_array_test
-build $builddir/convex_hull_2_array_test.o: cxx src/convex_hull_2_array_test.cpp
+build $builddir/convex_hull_2_array_test.o: cxx src/convex_hull_2/array_test.cpp
 build $bindir/convex_hull_2_array_test: link $builddir/convex_hull_2_array_test.o
 
-# hello
-build $builddir/hello.o: cxx src/hello.cpp
-build $bindir/hello: link $builddir/hello.o
+# test_hello
+build $builddir/test_hello.o: cxx src/test/hello.cpp
+build $bindir/test_hello: link $builddir/test_hello.o

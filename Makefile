@@ -3,7 +3,7 @@ build:
 	ninja -v
 
 targets:
-	./make_targets.py src/*.cpp
+	./make_targets.py src/**/*.cpp
 
 clean:
 	ninja -v -t clean

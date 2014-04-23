@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 import sys, os
-from os.path import exists, basename, splitext
+from os.path import exists, dirname, basename, splitext
 
 def usage():
     sys.stderr.write('Usage: {0} file1.cpp file2.cpp [...]\n'.format(sys.argv[0]))
@@ -17,11 +17,17 @@ def main():
         fp.write('# Created by {0}\n'.format(sys.argv[0]))
         fp.write('# THIS FILE WILL BE OVERWRITTEN!\n')
         for src in sources:
-            (root, ext) = splitext(basename(src))
-            fp.write('\n# {0}\n'.format(root))
-            fp.write('build $builddir/{0}.o: cxx src/{0}.cpp\n'.format(root))
-            fp.write('build $bindir/{0}: link $builddir/{0}.o\n'.format(root))
-            print('Added build rule for bin/{0}'.format(root))
+            d = {}
+            assert src.startswith('src/')
+            assert src.endswith('.cpp')
+            d['prefix'] = dirname(src).replace('src/','').replace('/','_')
+            d['src'] = src
+            d['root'], d['ext'] = splitext(basename(src))
+            d['target'] = '{prefix}_{root}'.format(**d)
+            fp.write('\n# {target}\n'.format(**d))
+            fp.write('build $builddir/{target}.o: cxx {src}\n'.format(**d))
+            fp.write('build $bindir/{target}: link $builddir/{target}.o\n'.format(**d))
+            print('Added build rule for bin/{target}'.format(**d))
         print('Wrote {0}'.format(fp.name))
 
 if __name__ == '__main__':
