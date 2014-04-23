@@ -1,5 +1,5 @@
 
-build:
+build: targets
 	ninja -v
 
 targets:
