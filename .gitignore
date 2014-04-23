@@ -2,4 +2,6 @@
 .ninja_log
 
 # Specific directories
+/bin
+/build
 /tmp
