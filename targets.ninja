@@ -1,0 +1,8 @@
+
+# convex_hull_2_array_test
+build $builddir/convex_hull_2_array_test.o: cxx src/convex_hull_2_array_test.cpp
+build $bindir/convex_hull_2_array_test: link $builddir/convex_hull_2_array_test.o
+
+# hello
+build $builddir/hello.o: cxx src/hello.cpp
+build $bindir/hello: link $builddir/hello.o

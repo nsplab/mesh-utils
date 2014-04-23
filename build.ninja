@@ -1,0 +1,19 @@
+
+bindir = bin
+builddir = build
+
+cxx = g++
+cflags = -std=c++11 -Wall -frounding-math
+#ldflags = -lCGAL -lCGAL_Core -lboost_system -lboost_thread -lpthread -lgmp
+libs = /usr/lib/libCGAL.a /usr/lib/libCGAL_Core.a /usr/lib/libboost_thread.a -lpthread /usr/lib/x86_64-linux-gnu/libgmp.a
+
+rule cxx
+    command = $cxx -MMD -MT $out -MF $out.d $cflags -c $in -o $out
+    description = CXX $out
+    depfile = $out.d
+
+rule link
+    command = $cxx $ldflags -o $out $in $libs
+    description = LINK $out
+
+include targets.ninja
