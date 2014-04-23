@@ -1,6 +1,10 @@
 # Created by ./make_targets.py
 # THIS FILE WILL BE OVERWRITTEN!
 
+# Subdivision_method_3_CatmullClark_subdivision
+build $builddir/Subdivision_method_3_CatmullClark_subdivision.o: cxx src/Subdivision_method_3/CatmullClark_subdivision.cpp
+build $bindir/Subdivision_method_3_CatmullClark_subdivision: link $builddir/Subdivision_method_3_CatmullClark_subdivision.o
+
 # convex_hull_2_array_test
 build $builddir/convex_hull_2_array_test.o: cxx src/convex_hull_2/array_test.cpp
 build $bindir/convex_hull_2_array_test: link $builddir/convex_hull_2_array_test.o
