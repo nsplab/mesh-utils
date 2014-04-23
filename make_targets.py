@@ -14,6 +14,8 @@ def main():
     
     sources = [path for path in args if exists(path) and path.endswith('.cpp')]
     with open('targets.ninja', 'w') as fp:
+        fp.write('# Created by {0}\n'.format(sys.argv[0]))
+        fp.write('# THIS FILE WILL BE OVERWRITTEN!\n')
         for src in sources:
             (root, ext) = splitext(basename(src))
             fp.write('\n# {0}\n'.format(root))

@@ -1,3 +1,5 @@
+# Created by ./make_targets.py
+# THIS FILE WILL BE OVERWRITTEN!
 
 # convex_hull_2_array_test
 build $builddir/convex_hull_2_array_test.o: cxx src/convex_hull_2_array_test.cpp
