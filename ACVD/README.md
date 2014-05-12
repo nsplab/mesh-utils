@@ -240,7 +240,11 @@ Luckily, MeshLab can reverse those normals via the menu options
 
     Filters > Normals, Curvature, and Orientation > Invert Faces Orientation
 
+![MeshLab flip-normals menu](https://raw.githubusercontent.com/nsplab/mesh-utils/master/ACVD/images/meshlab-flip-normals-menu.png)
+
 If you enable the wireframe, you can see that ACVD did indeed produce a very uniform mesh.
+
+![Uniform version of brain01.stl](https://raw.githubusercontent.com/nsplab/mesh-utils/master/ACVD/images/brain01-1000-uniform.png)
 
 Finally, now you can use MeshLab to save the PLY file in STL format!
 
