@@ -1,5 +1,5 @@
 
-# Notes on ACVD
+# Notes on Building ACVD
 
 ACVD is a surface mesh coarsening and resampling utility.
 * <http://www.creatis.insa-lyon.fr/site/en/acvd>
@@ -113,14 +113,13 @@ Once that finishes, the `bin` subdirectory should have the `stl2ply` and `ACVD` 
 
     luis@alpha:~/dev/ACVD/build$ cd bin
     luis@alpha:~/dev/ACVD/build/bin$ ls
-    ACVD*                       ManifoldSimplification*     VolumeMedian*               png2raw*
-    ACVD.json                   Minc2Mhd*                   VolumeSlice*                readimage*
-    ACVDQ*                      RandomTriangulation*        VolumeSubsample*            simplification.ply
-    AnisotropicRemeshing*       Untitled.stl                libvtkDiscreteRemeshing.a   smooth_simplification.ply
-    AnisotropicRemeshingQ*      VolumeAnalysis*             libvtkSurface.a             stl2ply*
-    CheckOrientation*           VolumeAnisotropicDiffusion* libvtkVolumeProcessing.a    viewer*
-    CleanMesh*                  VolumeCleanLabels*          mesh.ply                    viewer2*
-    ExamplevtkSurface*          VolumeCrop*                 mesh2vtk*                   vtk2ply
+    ACVD*                       ExamplevtkSurface*          VolumeCrop*                 mesh2vtk*
+    ACVD.json                   ManifoldSimplification*     VolumeMedian*               png2raw*
+    ACVDQ*                      Minc2Mhd*                   VolumeSlice*                readimage*
+    AnisotropicRemeshing*       RandomTriangulation*        VolumeSubsample*            stl2ply*
+    AnisotropicRemeshingQ*      VolumeAnalysis*             libvtkDiscreteRemeshing.a   viewer*
+    CheckOrientation*           VolumeAnisotropicDiffusion* libvtkSurface.a             viewer2*
+    CleanMesh*                  VolumeCleanLabels*          libvtkVolumeProcessing.a    vtk2ply*
 
 ## Running ACVD
 
@@ -155,7 +154,8 @@ of vertices down to, say 1000 vertices, we can use `ACVD`.
     -sf spare_factor : sets the spare factor
     -sc number_of_spare_clusters : sets the number of spare clusters 
 
-So the first argument should be 1000, the second one 0, and we want `-d 0` to skip the interactive mode:
+So the first argument should be `mesh.ply`, the second argument 1000, the third argument 0, and
+we also want `-d 0` to skip the interactive mode (it gets stuck otherwise):
 
     luis@alpha:~/dev/ACVD/build/bin$ ./ACVD mesh.ply 1000 0 -d 0
     load : mesh.ply
@@ -232,15 +232,15 @@ So the first argument should be 1000, the second one 0, and we want `-d 0` to sk
 
 This creates two files: `simplification.ply` and `smooth_simplification.ply`.
 
-If you load those files into MeshLab in wireframe mode, you can see that ACVD produced
-a very uniform mesh!
-
 Unfortunately, if you load these in MeshLab, you'll notice that the mesh appears dark instead of shiny.
 This is likely because the triangle vertices are saved in the wrong order, and MeshLab is displaying
 back-facing triangles as dark because the normals have been flipped.
 
-Luckily, MeshLab can reverse those normals via the Menu options
-`Filters > Normals, Curvature, and Orientation > Invert Faces Orientation`
+Luckily, MeshLab can reverse those normals via the menu options
 
-And finally, now you can use MeshLab to save the PLY file in STL format.
+    Filters > Normals, Curvature, and Orientation > Invert Faces Orientation
+
+If you enable the wireframe, you can see that ACVD did indeed produce a very uniform mesh.
+
+Finally, now you can use MeshLab to save the PLY file in STL format!
 
