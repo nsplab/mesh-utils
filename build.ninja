@@ -4,7 +4,7 @@ builddir = build
 
 cxx = g++
 cflags = -std=c++11 -Wall -frounding-math
-libs = -lCGAL -lCGAL_Core -lboost_system -lboost_thread -lpthread -lgmp
+libs = -lCGAL -lCGAL_Core -lboost_system-mt -lboost_thread-mt -lpthread -lgmp -lmpfr
 
 rule cxx
     command = $cxx -MMD -MT $out -MF $out.d $cflags -c $in -o $out

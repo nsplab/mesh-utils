@@ -1,6 +1,10 @@
 # Created by ./make_targets.py
 # THIS FILE WILL BE OVERWRITTEN!
 
+# Mesh_3_mesh_polyhedral_domain
+build $builddir/Mesh_3_mesh_polyhedral_domain.o: cxx src/Mesh_3/mesh_polyhedral_domain.cpp
+build $bindir/Mesh_3_mesh_polyhedral_domain: link $builddir/Mesh_3_mesh_polyhedral_domain.o
+
 # Subdivision_method_3_CatmullClark_subdivision
 build $builddir/Subdivision_method_3_CatmullClark_subdivision.o: cxx src/Subdivision_method_3/CatmullClark_subdivision.cpp
 build $bindir/Subdivision_method_3_CatmullClark_subdivision: link $builddir/Subdivision_method_3_CatmullClark_subdivision.o
@@ -12,3 +16,5 @@ build $bindir/convex_hull_2_array_test: link $builddir/convex_hull_2_array_test.
 # test_hello
 build $builddir/test_hello.o: cxx src/test/hello.cpp
 build $bindir/test_hello: link $builddir/test_hello.o
+
+# EOF
