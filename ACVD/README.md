@@ -25,14 +25,17 @@ First some setup:
     luis@alpha:~$ cd src/archive
     luis@alpha:~/src/archive$ wget http://download.qt-project.org/official_releases/qt/4.8/4.8.6/qt-everywhere-opensource-src-4.8.6.tar.gz
     luis@alpha:~/src/archive$ cd ~/src
-    luis@alpha:~/src$ tar xvfz src/archive/qt-everywhere-opensource-src-4.8.6.tar.gz
+    luis@alpha:~/src$ tar xvfz archive/qt-everywhere-opensource-src-4.8.6.tar.gz
     luis@alpha:~/src$ mv qt-everywhere-opensource-src-4.8.6 qt-4.8.6
     luis@alpha:~/src$ cd qt-4.8.6
     luis@alpha:~/src/qt-4.8.6$
 
 Now you can configure, compile, and install. This took about an hour for me:
 
-    luis@alpha:~/src/qt-4.8.6$ ./configure -prefix $HOME/opt/qt-4.8.6 -system-zlib -qt-libtiff -qt-libpng -qt-libjpeg -confirm-license -opensource -nomake demos -nomake examples -cocoa -fast -release -platform unsupported/macx-clang-libc++ -no-qt3support -nomake docs -arch x86_64 -developer-build
+    luis@alpha:~/src/qt-4.8.6$ ./configure -prefix $HOME/opt/qt-4.8.6 \
+        -system-zlib -qt-libtiff -qt-libpng -qt-libjpeg -confirm-license -opensource \
+        -nomake demos -nomake examples -cocoa -fast -release -platform unsupported/macx-clang-libc++ \
+        -no-qt3support -nomake docs -arch x86_64 -developer-build
     luis@alpha:~/src/qt-4.8.6$ gmake
     luis@alpha:~/src/qt-4.8.6$ gmake install
     
@@ -57,7 +60,6 @@ by placing Qt4's bin directory ahead in our PATH before running a program:
 
     luis@alpha:~/dev/VTK$ qmake -query QT_VERSION
     5.2.1
-
     luis@alpha:~/dev/VTK$ PATH=$HOME/opt/qt-4.8.6/bin:$PATH qmake -query QT_VERSION
     4.8.6
 
@@ -66,8 +68,25 @@ Note the various occurences of that prefix in a few of the arguments:
 
     luis@alpha:~/dev/VTK$ mkdir build
     luis@alpha:~/dev/VTK$ cd build
-
-    luis@alpha:~/dev/VTK/build$ PATH=$HOME/opt/qt-4.8.6/bin:$PATH cmake -DCMAKE_INSTALL_PREFIX=$HOME/opt/vtk-6.1.0 -DCMAKE_BUILD_TYPE=None -DCMAKE_FIND_FRAMEWORK=LAST -DCMAKE_VERBOSE_MAKEFILE=ON -Wno-dev -DVTK_REQUIRED_OBJCXX_FLAGS='' -DVTK_USE_CARBON=OFF -DVTK_USE_TK=OFF -DBUILD_TESTING=OFF -DBUILD_SHARED_LIBS=ON -DIOKit:FILEPATH=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk/System/Library/Frameworks/IOKit.framework -DCMAKE_INSTALL_RPATH:STRING=$HOME/opt/vtk-6.1.0/lib -DCMAKE_INSTALL_NAME_DIR:STRING=$HOME/opt/vtk-6.1.0/lib -DVTK_USE_SYSTEM_EXPAT=ON -DVTK_USE_SYSTEM_LIBXML2=ON -DVTK_USE_SYSTEM_ZLIB=ON -DVTK_Group_Qt=ON -DVTK_USE_COCOA=ON -DModule_vtkInfovisBoost=ON -DModule_vtkInfovisBoostGraphAlgorithms=ON -DModule_vtkRenderingFreeTypeFontConfig=ON -DVTK_USE_SYSTEM_HDF5=ON -DVTK_USE_SYSTEM_JPEG=ON -DVTK_USE_SYSTEM_PNG=ON -DVTK_USE_SYSTEM_TIFF=ON -DVTK_WRAP_PYTHON=ON -DPYTHON_LIBRARY='/usr/local/Cellar/python/2.7.6_1/Frameworks/Python.framework/Versions/2.7/lib/libpython2.7.dylib' -DVTK_INSTALL_PYTHON_MODULE_DIR="$HOME/opt/vtk-6.1.0/lib/python2.7/site-packages" ..
+    luis@alpha:~/dev/VTK/build$ PATH=$HOME/opt/qt-4.8.6/bin:$PATH cmake \
+        -DCMAKE_INSTALL_PREFIX=$HOME/opt/vtk-6.1.0 \
+        -DCMAKE_BUILD_TYPE=None \
+        -DCMAKE_FIND_FRAMEWORK=LAST \
+        -DCMAKE_VERBOSE_MAKEFILE=ON \
+        -Wno-dev -DVTK_REQUIRED_OBJCXX_FLAGS='' -DVTK_USE_CARBON=OFF -DVTK_USE_TK=OFF -DBUILD_TESTING=OFF \
+        -DBUILD_SHARED_LIBS=ON \
+        -DIOKit:FILEPATH=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk/System/Library/Frameworks/IOKit.framework \
+        -DCMAKE_INSTALL_RPATH:STRING=$HOME/opt/vtk-6.1.0/lib \
+        -DCMAKE_INSTALL_NAME_DIR:STRING=$HOME/opt/vtk-6.1.0/lib \
+        -DVTK_USE_SYSTEM_EXPAT=ON -DVTK_USE_SYSTEM_LIBXML2=ON -DVTK_USE_SYSTEM_ZLIB=ON \
+        -DVTK_Group_Qt=ON \
+        -DVTK_USE_COCOA=ON \
+        -DModule_vtkInfovisBoost=ON -DModule_vtkInfovisBoostGraphAlgorithms=ON -DModule_vtkRenderingFreeTypeFontConfig=ON \
+        -DVTK_USE_SYSTEM_HDF5=ON -DVTK_USE_SYSTEM_JPEG=ON -DVTK_USE_SYSTEM_PNG=ON -DVTK_USE_SYSTEM_TIFF=ON \
+        -DVTK_WRAP_PYTHON=ON \
+        -DPYTHON_LIBRARY='/usr/local/Cellar/python/2.7.6_1/Frameworks/Python.framework/Versions/2.7/lib/libpython2.7.dylib' \
+        -DVTK_INSTALL_PYTHON_MODULE_DIR="$HOME/opt/vtk-6.1.0/lib/python2.7/site-packages" \
+        ..
 
 If that worked, you should be able to compile and install VTK. This step is going to take a while!
 
@@ -106,7 +125,11 @@ specification, but I managed to figure out you can avoid that bug if you turn sh
 
 So, this is how I finally configured and compiled ACVD:
 
-    luis@alpha:~/dev/ACVD/build$ VTK_DIR=${HOME}/opt/vtk-6.1.0 cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_VERBOSE_MAKEFILE=ON -DBUILD_SHARED_LIBS=OFF ..
+    luis@alpha:~/dev/ACVD/build$ VTK_DIR=$HOME/opt/vtk-6.1.0 cmake \
+        -DCMAKE_BUILD_TYPE=Release \
+        -DCMAKE_VERBOSE_MAKEFILE=ON \
+        -DBUILD_SHARED_LIBS=OFF \
+        ..
     luis@alpha:~/dev/ACVD/build$ make
 
 Once that finishes, the `bin` subdirectory should have the `stl2ply` and `ACVD` binaries!
