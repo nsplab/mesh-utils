@@ -112,7 +112,7 @@ So, this is how I finally configured and compiled ACVD:
 Once that finishes, the `bin` subdirectory should have the `stl2ply` and `ACVD` binaries!
 
     luis@alpha:~/dev/ACVD/build$ cd bin
-    luis@alpha:~/dev/ACVD/build/bin$
+    luis@alpha:~/dev/ACVD/build/bin$ ls
     ACVD*                       ManifoldSimplification*     VolumeMedian*               png2raw*
     ACVD.json                   Minc2Mhd*                   VolumeSlice*                readimage*
     ACVDQ*                      RandomTriangulation*        VolumeSubsample*            simplification.ply
@@ -155,7 +155,9 @@ of vertices down to, say 1000 vertices, we can use `ACVD`.
     -sf spare_factor : sets the spare factor
     -sc number_of_spare_clusters : sets the number of spare clusters 
 
-    luis@alpha:~/.../build/bin(vtk6)$ ./ACVD mesh.ply 1000 0 -d 0
+So the first argument should be 1000, the second one 0, and we want `-d 0` to skip the interactive mode:
+
+    luis@alpha:~/dev/ACVD/build/bin$ ./ACVD mesh.ply 1000 0 -d 0
     load : mesh.ply
     PLY file type = 3
     *****************************************************************************
